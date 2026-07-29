@@ -19,6 +19,8 @@
 
 Full documentation on [website](https://transmute.sh/docs/)!
 
+**Full API documentation** — see [API_OVERVIEW.md](frontend/API_OVERVIEW.md)
+
 ## Screenshots
 | Workspace | Uploaded Files | Previously Converted | Settings |
 | --- | --- | --- | --- |
