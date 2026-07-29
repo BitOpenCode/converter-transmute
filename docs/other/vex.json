@@ -1,0 +1,598 @@
+{
+  "@context": "https://openvex.dev/ns/v0.2.0",
+  "@id": "https://github.com/transmute-app/transmute/blob/main/docs/other/vex.json",
+  "author": "transmute-app",
+  "timestamp": "2026-06-19T00:00:00Z",
+  "version": 10,
+  "statements": [
+    {
+      "vulnerability": { 
+        "@id": "CVE-2025-69720" 
+      },
+      "products": [
+        { 
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            { 
+              "@id": "pkg:deb/debian/ncurses@6.5%2B20250216-2?os_distro=trixie\u0026os_name=debian\u0026os_version=13" 
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute does not use progs/infocmp.c, function analyze_string(), which is the vulnerable code path. The vulnerable code is not in the execute path of Transmute, and cannot be reached by an attacker."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-42497"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/perl@5.40.1-6?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute does not use Perl Archive::Tar to extract untrusted tar archives. Its tar extraction path is implemented in Python via backend/converters/archive_convert.py and uses tarfile.extractall(path=dest, filter='data'), which rejects symlinks and hardlinks that escape the extraction directory. The vulnerable Archive::Tar hardlink extraction code path is not in the execute path of Transmute and cannot be reached by an attacker through the application."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-42496"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/perl@5.40.1-6?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute does not use Perl Archive::Tar to extract untrusted tar archives. Its tar extraction path is implemented in Python via backend/converters/archive_convert.py and uses tarfile.extractall(path=dest, filter='data'), which rejects symlinks and hardlinks that escape the extraction directory. The vulnerable Archive::Tar symlink extraction code path is not in the execute path of Transmute and cannot be reached by an attacker through the application."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-48962"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io"
+        }
+      ],
+      "status": "not_affected",
+      "justification": "component_not_present",
+      "impact_statement": "Transmute does not include the vulnerable Perl IO::Compress component in its container image, and the application does not use Perl File::GlobMapper or attacker-controlled output globs. Inspection of the built image shows no installed IO::Compress module in Perl's @INC and no Debian IO::Compress package such as libio-compress-perl in the package inventory, so the vulnerable component is not present in the product."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-9538"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/perl@5.40.1-6?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute does not use Perl Archive::Tar to parse or extract untrusted tar archives. Its tar-handling path is implemented in Python via backend/converters/archive_convert.py and uses Python tarfile rather than Perl Archive::Tar. The vulnerable Archive::Tar _read_tar() memory-exhaustion path is not in the execute path of Transmute and cannot be reached by an attacker through the application."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-8450"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/libhttp-daemon-perl@6.16-1?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute does not use Perl HTTP::Daemon or its send_file() method. Its HTTP download path is implemented in Python in backend/downloaders/http_downloader.py using httpx, and the application does not expose attacker-controlled input to Perl HTTP::Daemon::send_file(). The vulnerable HTTP::Daemon send_file() command-injection path is not in the execute path of Transmute and cannot be reached by an attacker through the application."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-26740"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/giflib@5.2.2-1?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute handles GIF conversion through Pillow in backend/converters/pillow_convert.py and does not call giflib's EGifGCBToExtension code path directly. The vulnerable giflib Graphic Control Extension overwrite path is not in the execute path of Transmute and cannot be reached by an attacker through the application."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-23868"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/giflib@5.2.2-1?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute handles GIF conversion through Pillow in backend/converters/pillow_convert.py and does not call giflib's GifMakeSavedImage code path directly. The vulnerable giflib shallow-copy and double-free path is not in the execute path of Transmute and cannot be reached by an attacker through the application."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-48959"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/perl@5.40.1-6?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute does not use Perl IO::Uncompress::Unzip to open named ZIP entries. Its archive handling is implemented in Python via backend/converters/archive_convert.py using zipfile, tarfile, py7zr, and rarfile. The vulnerable IO::Uncompress::Unzip fastForward() CPU-exhaustion path is not in the execute path of Transmute and cannot be reached by an attacker through the application."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2025-15649"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/perl@5.40.1-6?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute does not use Perl IO::Uncompress::Unzip to parse ZIP headers. Its ZIP handling is implemented in Python via backend/converters/archive_convert.py using zipfile. The vulnerable IO::Uncompress::Unzip _dosToUnixTime() exception path is not in the execute path of Transmute and cannot be reached by an attacker through the application."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2025-70103"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/jpeg-xl@0.11.2-0.1~deb13u1?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute's image conversions are orchestrated through Pillow in backend/converters/pillow_convert.py. PNM-family inputs are parsed by Pillow before any optional JXL output is written, and the application does not invoke libjxl's jxl::extras::DecodeImagePNM helper on attacker-controlled bytes. The vulnerable libjxl PNM decode path is not in the execute path of Transmute and cannot be reached by an attacker through the application."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-25835"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/mbedtls@3.6.5-0.1~deb13u1?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute does not use Mbed TLS or TF-PSA-Crypto for HTTPS, token generation, or random number generation. Its outbound HTTP client is implemented in Python via backend/downloaders/http_downloader.py using httpx and Python's ssl stack, and application secrets are generated with Python's secrets module. The vulnerable Mbed TLS PRNG seed-cloning path is not in the execute path of Transmute and cannot be reached by an attacker through the application."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-7010"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/perl@5.40.1-6?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute does not use Perl HTTP::Tiny to issue outbound requests. Its network download path is implemented in Python in backend/downloaders/http_downloader.py using httpx, and the application does not pass attacker-controlled URLs, methods, or headers to Perl HTTP::Tiny. The vulnerable HTTP::Tiny request-smuggling path is not in the execute path of Transmute and cannot be reached by an attacker through the application."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-8829"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/libhtml-parser-perl@3.83-1+b2?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute does not use Perl HTML::Entities or HTML::Parser to decode attacker-controlled HTML. Its HTML handling is implemented in Python, including email HTML processing in backend/converters/email_convert.py via lxml.html. The vulnerable HTML::Entities _decode_entities use-after-free path is not in the execute path of Transmute and cannot be reached by an attacker through the application."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-34980"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/cups@2.4.10-3%2Bdeb13u2?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute is a FastAPI file-conversion service and does not run the CUPS scheduler (cupsd), expose IPP or shared print queues, or accept print jobs. The vulnerable CUPS shared-queue page-border command-injection path is not in the execute path of Transmute and cannot be reached by an attacker through the application."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-34979"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/cups@2.4.10-3%2Bdeb13u2?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute is a FastAPI file-conversion service and does not run the CUPS scheduler (cupsd), expose IPP or shared print queues, or accept print jobs. The vulnerable CUPS scheduler heap-overflow path when building filter option strings from job attributes is not in the execute path of Transmute and cannot be reached by an attacker through the application."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-41079"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/cups@2.4.10-3%2Bdeb13u2?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute is a FastAPI file-conversion service and does not run the CUPS scheduler (cupsd) or the CUPS SNMP backend. The vulnerable crafted-SNMP-response out-of-bounds-read path in CUPS is not in the execute path of Transmute and cannot be reached by an attacker through the application."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-39316"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/cups@2.4.10-3%2Bdeb13u2?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute is a FastAPI file-conversion service and does not run the CUPS scheduler (cupsd), create temporary printers, or manage CUPS subscriptions. The vulnerable cupsdDeleteTemporaryPrinters() use-after-free path is not in the execute path of Transmute and cannot be reached by an attacker through the application."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-39314"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/cups@2.4.10-3%2Bdeb13u2?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute is a FastAPI file-conversion service and does not run the CUPS scheduler (cupsd) or process IPP job-password-supported attributes. The vulnerable _ppdCreateFromIPP() integer-underflow path is not in the execute path of Transmute and cannot be reached by an attacker through the application."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-6732"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/libxml2@2.12.7%2Bdfsg%2Breally2.9.14-2.1%2Bdeb13u2?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "This libxml2 issue requires XML Schema validation of attacker-supplied XML with internal entities. Transmute parses FictionBook input in backend/converters/pypandoc_convert.py using defusedxml.ElementTree and does not perform XML Schema validation on attacker-controlled documents. The vulnerable libxml2 XSD validation path is not in the execute path of Transmute and cannot be reached by an attacker through the application."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-42250"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/bzip2@1.0.8-6?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "The vulnerable code is in the bzip2recover utility. Transmute does not invoke bzip2recover; its archive conversion path is implemented in Python in backend/converters/archive_convert.py using tarfile and related libraries. The vulnerable bzip2recover out-of-bounds-write path is not in the execute path of Transmute and cannot be reached by an attacker through the application."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2025-45582"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/tar@1.35%2Bdfsg-3.1?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute does not use GNU tar to extract untrusted tar archives. Its tar extraction path is implemented in Python via backend/converters/archive_convert.py and uses tarfile.extractall(path=dest, filter='data'), which rejects symlinks and hardlinks that escape the extraction directory. The vulnerable GNU tar multi-archive traversal path is not in the execute path of Transmute and cannot be reached by an attacker through the application."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-12087"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/perl@5.40.1-6?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute does not use Perl Socket or call Socket.xs pack_ip_mreq_source() on attacker-controlled input. Its network download path is implemented in Python in backend/downloaders/http_downloader.py using httpx, and the application does not pass attacker-controlled multicast socket arguments into Perl. The vulnerable Perl Socket pack_ip_mreq_source() out-of-bounds-read path is not in the execute path of Transmute and cannot be reached by an attacker through the application."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-50264"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/xorg-server@2%3A21.1.16-1.3%2Bdeb13u2?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute starts Xvfb only as a private local display server for the Draw.io CLI in docker/entrypoint.sh and does not expose an X11 or Xwayland service to remote users. The vulnerable X.Org DRIGetBuffers/DRIGetBuffersWithFormat out-of-bounds-write path requires a hostile X client connection, which is not reachable through Transmute's HTTP conversion API."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-50261"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/xorg-server@2%3A21.1.16-1.3%2Bdeb13u2?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute starts Xvfb only as a private local display server for the Draw.io CLI in docker/entrypoint.sh and does not expose an X11 or Xwayland service to remote users. The vulnerable X.Org SyncChangeCounter() use-after-free path requires a hostile X client connection, which is not reachable through Transmute's HTTP conversion API."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-50260"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/xorg-server@2%3A21.1.16-1.3%2Bdeb13u2?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute starts Xvfb only as a private local display server for the Draw.io CLI in docker/entrypoint.sh and does not expose an X11 or Xwayland service to remote users. The vulnerable X.Org FreeCounter() use-after-free path requires a hostile X client connection, which is not reachable through Transmute's HTTP conversion API."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-50259"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/xorg-server@2%3A21.1.16-1.3%2Bdeb13u2?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute starts Xvfb only as a private local display server for the Draw.io CLI in docker/entrypoint.sh and does not expose an X11 or Xwayland service to remote users. The vulnerable X.Org _XkbSetMapChecks()/CheckKeyTypes() stack-overflow path requires a hostile X client connection, which is not reachable through Transmute's HTTP conversion API."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-50258"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/xorg-server@2%3A21.1.16-1.3%2Bdeb13u2?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute starts Xvfb only as a private local display server for the Draw.io CLI in docker/entrypoint.sh and does not expose an X11 or Xwayland service to remote users. The vulnerable X.Org CheckKeyTypes() non-canonical shift-level stack-overflow path requires a hostile X client connection, which is not reachable through Transmute's HTTP conversion API."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-50257"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/xorg-server@2%3A21.1.16-1.3%2Bdeb13u2?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute starts Xvfb only as a private local display server for the Draw.io CLI in docker/entrypoint.sh and does not expose an X11 or Xwayland service to remote users. The vulnerable X.Org miSyncDestroyFence() use-after-free path requires a hostile X client connection, which is not reachable through Transmute's HTTP conversion API."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-50256"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/xorg-server@2%3A21.1.16-1.3%2Bdeb13u2?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute starts Xvfb only as a private local display server for the Draw.io CLI in docker/entrypoint.sh and does not expose an X11 or Xwayland service to remote users. The vulnerable X.Org font-alias stack-overflow path during alias resolution requires a hostile X client connection, which is not reachable through Transmute's HTTP conversion API."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-50263"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/xorg-server@2%3A21.1.16-1.3%2Bdeb13u2?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute starts Xvfb only as a private local display server for the Draw.io CLI in docker/entrypoint.sh and does not expose an X11 or Xwayland service to remote users. The vulnerable X.Org CreateSaverWindow() use-after-free path requires a hostile X client connection, which is not reachable through Transmute's HTTP conversion API."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-50262"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/xorg-server@2%3A21.1.16-1.3%2Bdeb13u2?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Transmute starts Xvfb only as a private local display server for the Draw.io CLI in docker/entrypoint.sh and does not expose an X11 or Xwayland service to remote users. The vulnerable X.Org __glXDisp_ChangeDrawableAttributes() out-of-bounds-read path requires a hostile X client connection, which is not reachable through Transmute's HTTP conversion API."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2026-50219"
+      },
+      "products": [
+        {
+          "@id": "pkg:docker/transmute-app/transmute?repository_url=ghcr.io",
+          "subcomponents": [
+            {
+              "@id": "pkg:deb/debian/expat@2.7.1-2?os_distro=trixie\u0026os_name=debian\u0026os_version=13"
+            }
+          ]
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "This libexpat issue requires application code to re-enter the parser from within Expat handlers by calling APIs such as XML_GetBuffer, XML_Parse, XML_ParseBuffer, XML_ParserFree, or XML_ParserReset during a policy-violation callback. Transmute parses XML through defusedxml.ElementTree in backend/converters/pypandoc_convert.py and backend/core/helper_functions.py and does not register custom Expat handlers or perform handler-driven reentrant parsing on attacker-controlled XML. The vulnerable libexpat handler-reentrancy use-after-free path is not in the execute path of Transmute and cannot be reached by an attacker through the application."
+    }
+  ]
+}

@@ -1,0 +1,339 @@
+# Contributing
+
+![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.129-009688?logo=fastapi&logoColor=white)
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)
+
+First off, thank you for your interest in contributing ❤️
+
+This project is intended to be a reliable, self-hosted tool, and contributions of all kinds are welcome: code, documentation, bug reports, ideas, and feedback.
+
+Want to instead contribute to our [website](https://transmute.sh)? Check out [transmute-app/transmute-app.github.io](https://github.com/transmute-app/transmute-app.github.io).
+
+> [!CAUTION]
+>
+> ## No Autonomous Agents or Unreviewed AI Contributions
+>
+> This repository does not accept contributions submitted by autonomous agents or AI systems without direct human authorship, review, and accountability.
+>
+> All pull requests must come from a human contributor who understands, validates, and takes responsibility for the proposed changes.
+>
+> AI-assisted development is allowed, but blindly accepted or fully agent-generated contributions are not. If you use AI tooling, you are expected to verify correctness, understand the implementation, and stand behind the final submission.
+>
+> Maintainers may reject contributions without review if they appear to be primarily autonomous, low-effort AI output, or otherwise lack clear human ownership. (25k line PRs, etc.)
+
+---
+
+## Ways to Contribute
+
+You can help by:
+
+* Reporting bugs
+* Suggesting features or improvements
+* Improving documentation
+* Adding new converters
+* Fixing issues
+* Reviewing pull requests
+
+If you are unsure where to start, check the open issues or look for issues labeled `good first issue`.
+
+---
+
+## Getting Started
+
+### 1. Fork and Clone
+
+1. Click **Fork** at the top-right of the [transmute repository](https://github.com/transmute-app/transmute) to create your own copy.
+2. Clone your fork locally:
+
+```bash
+git clone https://github.com/<your-username>/transmute.git
+cd transmute
+```
+
+3. Add the upstream remote so you can keep your fork in sync:
+
+```bash
+git remote add upstream https://github.com/transmute-app/transmute.git
+```
+
+### 2. Create a Branch
+
+```bash
+git checkout -b feature/my-feature
+```
+
+Use descriptive branch names.
+
+Examples:
+
+* `feature/csv-to-png`
+* `fix/job-progress`
+* `docs/api-clarification`
+
+### 3. Commit Messages
+
+Use [Conventional Commits](https://www.conventionalcommits.org/) for all commit messages:
+
+| Prefix    | Use for                          |
+| --------- | -------------------------------- |
+| `feat:`   | New features                     |
+| `fix:`    | Bug fixes                        |
+| `docs:`   | Documentation changes            |
+| `style:`  | Formatting, whitespace, etc.     |
+| `refactor:` | Code changes that aren't fixes or features |
+| `test:`   | Adding or updating tests         |
+| `chore:`  | Build tasks, CI, dependencies    |
+
+Examples:
+
+* `feat: add TIFF to WebP conversion`
+* `fix: handle empty file extension on upload`
+* `docs: update API examples in README`
+
+### 4. Build and Run the Docker Image (Recommended)
+`docker compose -f docker-compose-dev.yml up -d`
+
+### 4. Alternatively, Run Directly (Not Recommended)
+
+#### 4.1. Install Python dependencies
+
+`pip3 install requirements.txt`
+
+#### 4.2. Build the Frontend
+
+```
+cd ./frontend
+npm install
+npm run build
+```
+
+#### 4.3. Install other dependencies
+
+- ffmpeg: For video / audio conversions
+- libmagic1: For filetype detection when there are no extensions
+- cairo: SVG interpreting / conversions
+- Drawio Desktop App: To render `.drawio` files
+- pandoc: For document conversions (markdown, docx, html, etc.)
+- pango: Required by weasyprint for PDF generation
+
+#### 4.4. Spin up the app locally
+
+`python3 backend/main.py`
+
+Feel free to reach out via issue if you hit any snags.
+
+---
+
+## Make Commands
+
+A `Makefile` is included to simplify common development tasks. Run `make help` to see all available targets.
+
+### Quick Reference
+
+| Command | Description |
+| --- | --- |
+| `make help` | Show all available commands |
+| `make install` | Install all dependencies (backend + frontend) |
+| `make dev` | Run backend and frontend dev servers concurrently |
+| `make build` | Build the frontend for production |
+| `make lint` | Run all linters (currently frontend ESLint) |
+| `make clean` | Remove build artifacts and caches |
+| `make docker` | Build and start the Docker dev environment |
+
+### Installation
+
+```bash
+# Install everything
+make install
+
+# Or install individually
+make install-backend    # pip install -r requirements.txt
+make install-frontend   # npm install in frontend/
+```
+
+### Development
+
+```bash
+# Start both backend (localhost:3313) and frontend (localhost:5173)
+make dev
+
+# Or run them individually
+make dev-backend
+make dev-frontend
+```
+
+### Building
+
+```bash
+# Build frontend for production
+make build
+```
+
+### Linting
+
+```bash
+# Run all linters
+make lint
+
+# Run just frontend ESLint
+make lint-frontend
+```
+
+### Docker
+
+```bash
+# Build image and start containers (dev)
+make docker
+
+# Or run steps individually
+make docker-build   # Build the image
+make docker-up      # Start containers
+make docker-down    # Stop containers
+make docker-logs    # Tail container logs
+
+# Start production containers (pulls from registry)
+make docker-prod
+```
+
+### Cleanup
+
+```bash
+# Remove build artifacts (frontend/dist, __pycache__, etc.)
+make clean
+
+# Remove local data (uploads, outputs, db) — prompts for confirmation
+make clean-data
+
+# Remove everything (artifacts + data + node_modules)
+make clean-all
+```
+
+> **Note:** The `PYTHON` variable defaults to `python3`. If your system uses a different binary, override it with: `make PYTHON=python dev`
+
+
+---
+
+## Project Architecture (High Level)
+
+Core components:
+
+* **API** — FastAPI application
+* **Workers** — background job processing (Not yet implemented)
+* **Converters** — plugin-style conversion modules
+* **Storage** — filesystem for files, SQLite for metadata
+* **Queue** — Redis (Not yet implemented)
+
+Converters follow a shared base class and are registered via the converter registry.
+
+---
+
+## Adding a New Converter
+
+Contributions adding new converters are very welcome.
+
+General expectations:
+
+* Extend the base `ConverterInterface` class
+* Declare supported inputs and outputs
+* Implement the `convert()` method
+* Include basic validation and error handling
+
+Please keep converters:
+
+* Deterministic
+* Side-effect limited
+* Safe for untrusted input files
+
+If external binaries are required (e.g., ffmpeg, pandoc), document them clearly.
+
+---
+
+## Code Style
+
+We aim for clean, readable code.
+
+General guidelines:
+
+* Prefer clarity over cleverness
+* Keep functions focused and small
+* Add docstrings where helpful
+* Use type hints when possible
+* Follow existing patterns in the codebase
+
+Formatting and linting tools may be added or enforced over time.
+
+---
+
+## Pull Request Process
+
+1. Ensure your branch is up to date with `main`
+2. Make focused changes (avoid unrelated modifications)
+3. Add or update tests if applicable
+4. Update documentation if behavior changes
+5. Open a Pull Request with a clear description
+
+PRs should explain:
+
+* What changed
+* Why it changed
+* How it was tested
+
+Small PRs are preferred over large ones.
+
+---
+
+## Reporting Bugs
+
+Please use the bug report template and include:
+
+* Steps to reproduce
+* Expected behavior
+* Actual behavior
+* Logs or screenshots (if available)
+* Environment details
+
+---
+
+## Feature Requests
+
+Feature requests are welcome. Please describe:
+
+* The problem you want solved
+* Proposed solution (if any)
+* Alternatives considered
+
+---
+
+## Security
+
+If you discover a security vulnerability, **do not open a public issue**.
+
+Instead, please contact the maintainers privately (see [SECURITY](https://github.com/transmute-app/transmute/security/policy)).
+
+---
+
+## Philosophy
+
+This project prioritizes:
+
+* Simplicity
+* Reliability
+* Self-host friendliness
+* Transparency
+* Extensibility
+
+We try to avoid unnecessary complexity and heavy dependencies unless they provide clear value.
+
+---
+
+## Questions
+
+If you have questions, feel free to ask it using the "Question" issue template.
+
+---
+
+## License
+
+By contributing, you agree that your contributions will be licensed under the same license as this project.

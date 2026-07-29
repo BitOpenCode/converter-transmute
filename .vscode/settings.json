@@ -1,0 +1,25 @@
+{
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "[python]": {
+        "editor.tabSize": 4
+    },
+    "[yaml]": {
+        "editor.tabSize": 2
+    },
+    "[json]": {
+        "editor.tabSize": 2
+    },
+    "[typescript]": {
+        "editor.tabSize": 2
+    },
+    "[typescriptreact]": {
+        "editor.tabSize": 2
+    },
+    "files.associations": {
+        "*.yaml": "yaml",
+        "*.yml": "yaml"
+    },
+    "css.lint.unknownAtRules": "ignore"
+}
